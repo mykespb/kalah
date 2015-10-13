@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke ludoj/mk-kalah-loc-max.py 2015-10-13 2.2
+# myke kalah/mk-kalah-loc-maxstat.py 2015-10-13 2.3
 # kalah playing
-# ver. 2. 1st maximum move select
+# ver. 2. 1st maximum static function move select
 # simple move rules, single w/o additions
 
 import sys, random
@@ -162,7 +162,22 @@ def makemoverand (b):
 
 def makemovemax (b):
     """max move select"""
+    ms =  [(k[0], est(b, k[0])) for k in enumerate(b[1][:KALAH]) if k[1]]
+    me = ms.sort (key = lambda k: k[1], reverse=True)
+    m = me[0]
+    print ("\nComputer moves: %d\n" % (m+1,))
     pass
+
+def est (b, h):
+    """static maximum estimation function, one of"""
+    return est1 (b, h)
+
+def est1 (b, h):
+    """simple function: k[1] - k[0]"""
+    bb = b[:]
+    move (bb, 1, h)
+    e = bb[1][KALAH] - bb[0][KALAH]
+    return e
 
 def makemove (b):
     """computer moves"""
