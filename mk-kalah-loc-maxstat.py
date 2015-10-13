@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke kalah/mk-kalah-loc-maxstat.py 2015-10-13 2.3
+# myke kalah/mk-kalah-loc-maxstat.py 2015-10-13 2.5
 # kalah playing
 # ver. 2. 1st maximum static function move select
 # simple move rules, single w/o additions
 
-import sys, random
+import sys, random, copy
 
 # parameters
 STONES      = 4     # stones in each hole
 HOLES       = 6     # holes in board side (except kalah)
 DEPTH       = 3     # move search tree depth
 TIMEOUT     = 5     # seconds for each move, else break
+DEBUG       = 0     # show debug info
 
 # derivative parameters
 KALAH       = HOLES
@@ -162,21 +163,42 @@ def makemoverand (b):
 
 def makemovemax (b):
     """max move select"""
-    ms =  [(k[0], est(b, k[0])) for k in enumerate(b[1][:KALAH]) if k[1]]
-    me = ms.sort (key = lambda k: k[1], reverse=True)
-    m = me[0]
+    ms =  [[k[0], 0] for k in enumerate(b[1][:KALAH]) if k[1]]
+    for i in range(len(ms)):
+        ms [i][1] = est (copy.deepcopy(b), ms [i][0])
+    if DEBUG: print (ms)
+    ms.sort (key = lambda k: k[1], reverse=True)
+    if DEBUG: print (ms)
+    m = ms[0][0]
     print ("\nComputer moves: %d\n" % (m+1,))
-    pass
+    return m
 
 def est (b, h):
     """static maximum estimation function, one of"""
-    return est1 (b, h)
+    return est2 (b, h)
 
 def est1 (b, h):
     """simple function: k[1] - k[0]"""
-    bb = b[:]
+    if DEBUG: print ("test for", h)
+    if DEBUG: show (b)
+    bb = b
     move (bb, 1, h)
     e = bb[1][KALAH] - bb[0][KALAH]
+    if DEBUG: show(bb)
+    if DEBUG: print ("est=", e)
+    return e
+
+def est2 (b, h):
+    """simple function: (k[1]-k[0])*2 + sum(k[1])"""
+    if DEBUG: print ("test for", h)
+    if DEBUG: show (b)
+    bb = b
+    move (bb, 1, h)
+    e = (bb[1][KALAH] - bb[0][KALAH]) * 2
+    for i in bb[1][:KALAH]:
+        e += i
+    if DEBUG: show(bb)
+    if DEBUG: print ("est=", e)
     return e
 
 def makemove (b):
