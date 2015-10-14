@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke kalah/mk-kalah-loc-maxstat.py 2015-10-13 2.5
+# myke kalah/mk-kalah-loc-maxstat.py 2015-10-14 2.6
 # kalah playing
 # ver. 2. 1st maximum static function move select
 # simple move rules, single w/o additions
@@ -10,6 +10,7 @@ import sys, random, copy
 # parameters
 STONES      = 4     # stones in each hole
 HOLES       = 6     # holes in board side (except kalah)
+                    # (NB: output in'show' depends on %4d)
 DEPTH       = 3     # move search tree depth
 TIMEOUT     = 5     # seconds for each move, else break
 DEBUG       = 0     # show debug info
@@ -155,11 +156,11 @@ def getmove ():
             return 0
         return n
 
-def makemoverand (b):
-    """computer moves: random possible move"""
-    m = random.choice ([k[0] for k in enumerate(b[1][:KALAH]) if k[1]])
-    print ("\nComputer moves: %d\n" % (m+1,))
-    return m
+#~ def makemoverand (b):
+    #~ """computer moves: random possible move"""
+    #~ m = random.choice ([k[0] for k in enumerate(b[1][:KALAH]) if k[1]])
+    #~ print ("\nComputer moves: %d\n" % (m+1,))
+    #~ return m
 
 def makemovemax (b):
     """max move select"""
@@ -232,7 +233,7 @@ def report ():
 
 def show (b):
     """show board"""
-    print ("%4d%4d%4d%4d%4d%4d%4d\n--------------------------------\n    %4d%4d%4d%4d%4d%4d%4d" % (*(b[1][::-1]), *(b[0])))
+    print ("%4d%4d%4d%4d%4d%4d%4d\n  ==--------------------------==\n    %4d%4d%4d%4d%4d%4d%4d" % (*(b[1][::-1]), *(b[0])))
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))

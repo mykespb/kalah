@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke ludoj/mk-kalah-loc-rand.py 2015-10-13 1.5
+# myke kalah/mk-kalah-loc-rand.py 2015-10-14 1.7
 # kalah playing
 # ver. 1. random move select
 # simple move rules, single w/o additions
@@ -10,6 +10,7 @@ import sys, random
 # parameters
 STONES      = 4     # stones in each hole
 HOLES       = 6     # holes in board side (except kalah)
+                    # (NB: output in'show' depends on %4d)
 
 # derivative parameters
 KALAH       = HOLES
@@ -208,7 +209,7 @@ def report ():
 
 def show (b):
     """show board"""
-    print ("%4d%4d%4d%4d%4d%4d%4d\n--------------------------------\n    %4d%4d%4d%4d%4d%4d%4d" % (*(b[1][::-1]), *(b[0])))
+    print ("%4d%4d%4d%4d%4d%4d%4d\n  ==--------------------------==\n    %4d%4d%4d%4d%4d%4d%4d" % (*(b[1][::-1]), *(b[0])))
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
