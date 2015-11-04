@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke kalah/mk-kalah-loc-maxstat.py 2015-10-14 2.6
+# myke kalah/mk-kalah-loc-maxstat.py 2015-11-04 2.7
 # kalah playing
 # ver. 2. 1st maximum static function move select
 # simple move rules, single w/o additions
@@ -237,3 +237,4 @@ def show (b):
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
+

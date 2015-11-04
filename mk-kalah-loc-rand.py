@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# myke kalah/mk-kalah-loc-rand.py 2015-10-14 1.7
+# myke kalah/mk-kalah-loc-rand.py 2015-11-04 1.8
 # kalah playing
 # ver. 1. random move select
 # simple move rules, single w/o additions
@@ -194,6 +194,7 @@ def theend ():
     if b[0][KALAH] > b[1][KALAH]:
         winner = 1
         print ("\nPlayer won!\n")
+
     elif b[0][KALAH] < b[1][KALAH]:
         winner = -1
         print ("\nComputer won!\n")
@@ -213,3 +214,4 @@ def show (b):
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
+
